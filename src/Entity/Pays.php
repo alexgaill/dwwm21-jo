@@ -54,6 +54,7 @@ class Pays
         return $this;
     }
 
+    #[ORM\PostRemove]
     public function deleteDrapeau(): bool
     {
         if (file_exists(__DIR__. "/../../public/assets/img/drapeaux/". $this->drapeau)) {

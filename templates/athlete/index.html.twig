@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="mt-5">
+        <h1>Liste des athlètes</h1>
+
+        <table class="table table-striped table-hover text-center">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Photo</th>
+                    <th>Nom</th>
+                    <th>Date naissance</th>
+                    <th>Pays</th>
+                    <th>Discipline</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for athlete in athletes %}
+                    <tr>
+                        <td>{{ athlete.id }}</td>
+                        <td><img src="{{ asset('/assets/img/profils/' ~ athlete.photo) }}" alt="photo de profil de {{ athlete.prenom }} {{ athlete.nom }}" width="100px"></td>
+                        <td>{{ athlete.nom }} {{ athlete.prenom }}</td>
+                        <td>{{ athlete.dateNaissance|date('d/m/Y') }}</td>
+                        <td><img src="{{ asset('/assets/img/drapeaux/'~ athlete.pays.drapeau) }}" alt="Drapeau de {{ athlete.pays.nom }}"> {{ athlete.pays.nom }}</td>
+                        <td>{{ athlete.discipline.nom }}</td>
+                        <td>
+                            <a href="{{ path('app_update_athlete', {id: athlete.id}) }}"><button class="btn btn-info">Modifier</button></a>
+                            <a href="{{ path('app_delete_athlete', {id: athlete.id}) }}" onclick=alert('Etes-vous sûr?')><button class="btn btn-danger">Supprimer</button></a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center text-warning bg-secondary">Aucun athlète n'est inscrit aux JO 2024</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="7">
+                        {% include "athlete/_form.html.twig" %}
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+{% endblock %}

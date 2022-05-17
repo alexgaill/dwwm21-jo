@@ -18,7 +18,7 @@ class Discipline
     #[ORM\Column(type: 'string', length: 100)]
     private $nom;
 
-    #[ORM\OneToMany(mappedBy: 'discipline', targetEntity: Athlete::class)]
+    #[ORM\OneToMany(mappedBy: 'discipline', targetEntity: Athlete::class, orphanRemoval:true)]
     private $athletes;
 
     public function __construct()

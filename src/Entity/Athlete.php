@@ -6,6 +6,7 @@ use App\Repository\AthleteRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AthleteRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Athlete
 {
     #[ORM\Id]
@@ -30,7 +31,7 @@ class Athlete
     private $pays;
 
     #[ORM\ManyToOne(targetEntity: Discipline::class, inversedBy: 'athletes')]
-    #[ORM\JoinColumn(nullable: true)]
+    #[ORM\JoinColumn(nullable: false)]
     private $discipline;
 
     public function getId(): ?int
@@ -108,5 +109,14 @@ class Athlete
         $this->discipline = $discipline;
 
         return $this;
+    }
+
+    #[ORM\PostRemove]
+    public function deletePhoto(): bool
+    {
+        if (file_exists(__DIR__."/../../public/assets/img/profils/". $this->photo)) {
+            unlink(__DIR__."/../../public/assets/img/profils/". $this->photo);
+        }
+        return true;
     }
 }
