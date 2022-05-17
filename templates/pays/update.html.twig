@@ -1,0 +1,8 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="my-3">
+        <h1>Modification de pays</h1>
+        {% include "pays/_form.html.twig" with {submitLabel: "Modifier"} %}
+    </div>
+{% endblock %}

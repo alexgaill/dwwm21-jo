@@ -1,0 +1,9 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="mb-5">
+        <h1>Modification de discipline</h1>
+
+        {% include "discipline/_form.html.twig" with {submitLabel:'Modifier'} %}
+    </div>
+{% endblock %}

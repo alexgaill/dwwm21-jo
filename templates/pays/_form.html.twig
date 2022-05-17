@@ -1,0 +1,5 @@
+{{ form_start(form) }}
+    {{ form_row(form.nom) }}
+    {{ form_row(form.drapeau, {required: required|default(false)}) }}
+    {{ form_row(form.submit, {label: submitLabel}) }}
+{{ form_end(form) }}

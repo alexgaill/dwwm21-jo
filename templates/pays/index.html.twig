@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="my-5">
+		<h1>Liste des pays</h1>
+
+		<table class="table table-striped table-hover mt-3">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Drapeau</th>
+					<th>Nom</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for pays in paysList %}
+					<tr>
+						<td>{{ pays.id }}</td>
+						<td><img src="{{ asset('assets/img/drapeaux/' ~ pays.drapeau) }}" alt="Drapeau du pays {{pays.nom}}"></td>
+						<td>{{ pays.nom }}</td>
+						<td>
+							<a href="{{ path('app_update_pays', {id: pays.id}) }}">
+								<button class="btn btn-info">Modifier</button>
+							</a>
+							<a href="{{ path('app_delete_pays', {id: pays.id}) }}">
+								<button class="btn btn-danger" onclick="alert('Etes-vous sûr?')">Supprimer</button>
+							</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="4" class="bg-secondary text-warning text-center">Aucun pays inscrit</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="4" class="text-center">
+						<a href="{{ path('app_add_pays') }}">
+							<button class="btn btn-success">Ajouter un pays</button>
+						</a>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+{% endblock %}
